@@ -1,4 +1,4 @@
-package com.xiey94.xydialog;
+package com.xiey94.simple;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -1,4 +1,4 @@
-package com.xiey94.xydialog;
+package com.xiey94.simple;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.xiey94.xydialog.test", appContext.getPackageName());
+        assertEquals("com.xiey94.xydialog", appContext.getPackageName());
     }
 }
