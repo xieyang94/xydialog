@@ -38,7 +38,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @包名 cn.wzh.common.Common
  * @说明 �?些长用变量的说明
  */
-public class Common {
+public class XyCommon {
     /**
      *
      * @param context
@@ -93,7 +93,7 @@ public class Common {
                     context.getPackageName(), 0);
             return packInfo.versionName;
         } catch (NameNotFoundException e1) {
-            LogInfo.e(e1.getMessage());
+            XyLogInfo.e(e1.getMessage());
         }
         return "0.0.0";
     }
@@ -105,7 +105,7 @@ public class Common {
                     context.getPackageName(), 0);
             return packInfo.versionCode;
         } catch (NameNotFoundException e1) {
-            LogInfo.e(e1.getMessage());
+            XyLogInfo.e(e1.getMessage());
         }
         return 0;
     }
@@ -160,7 +160,7 @@ public class Common {
             // 生成�?个密�?
             deskey = keygen.generateKey();
         } catch (NoSuchAlgorithmException e) {
-            LogInfo.e(e.getMessage());
+            XyLogInfo.e(e.getMessage());
         }
         // 返回密匙
         return deskey;
@@ -193,7 +193,7 @@ public class Common {
             // 对要加密的内容进行编码处�?,
             cipherByte = c1.doFinal(info.getBytes());
         } catch (Exception e) {
-            LogInfo.e(e.getMessage());
+            XyLogInfo.e(e.getMessage());
         }
         // 返回密文的十六进制形�?
         return byte2hex(cipherByte);
@@ -216,7 +216,7 @@ public class Common {
             // 对要解密的内容进行编码处�?
             cipherByte = c1.doFinal(hex2byte(sInfo));
         } catch (Exception e) {
-            LogInfo.e(e.getMessage());
+            XyLogInfo.e(e.getMessage());
         }
         // return byte2hex(cipherByte);
         return new String(cipherByte);

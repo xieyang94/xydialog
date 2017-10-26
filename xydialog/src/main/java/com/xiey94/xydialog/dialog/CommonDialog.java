@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiey94.xydialog.R;
-import com.xiey94.xydialog.util.Common;
+import com.xiey94.xydialog.util.XyCommon;
 
 import java.util.List;
 
@@ -322,8 +322,8 @@ public class CommonDialog extends Dialog {
                 textView.setLayoutParams(lp2);
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
-                textView.setTextSize(Common.dip2px(context, 6));
-                textView.setBackgroundResource(R.drawable.selector_text);
+                textView.setTextSize(XyCommon.dip2px(context, 6));
+                textView.setBackgroundResource(R.drawable.xy_selector_text);
                 if (onDialogChooseClickListener != null) {
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -14,7 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class LogInfo {
+public class XyLogInfo {
 
     private static boolean loggable = true;//BuildConfig.DEBUG;
     private final static String tag = "ccer";
@@ -47,7 +47,7 @@ public class LogInfo {
                 out.close();
             }
         } catch (IOException e) {
-            LogInfo.e("Could not write file " + e.getMessage());
+            XyLogInfo.e("Could not write file " + e.getMessage());
         }
     }
 
