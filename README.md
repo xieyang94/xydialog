@@ -127,7 +127,7 @@ dependencies {
 ```
 
 
-![输入框](https://github.com/xieyang94/xydialog/blob/master/2.png "输入框")
+![输入框](https://github.com/xieyang94/xydialog/images/blob/master/2.png "输入框")
 
 
 ```
@@ -150,7 +150,7 @@ List<String> list = new ArrayList<String>();
                 .show();
 ```
 
-![单选框](https://github.com/xieyang94/xydialog/blob/master/3.png "单选框")
+![单选框](https://github.com/xieyang94/xydialog/blob/master/images/3.png "单选框")
 
 
 
