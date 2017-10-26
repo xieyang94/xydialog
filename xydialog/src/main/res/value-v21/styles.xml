@@ -6,8 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Dialog" parent="android:style/Theme.Dialog">
@@ -17,22 +15,18 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
-    <style name="ToolBarWithNavigationBack">
-        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
-        <item name="android:textSize">15sp</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-    </style>
-
     <style name="TextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dip</item>
+        <item name="android:layout_height">30dip</item>
         <item name="android:layout_marginLeft">20dip</item>
         <item name="android:layout_marginRight">20dip</item>
-        <item name="android:layout_marginTop">10dip</item>
+        <item name="android:layout_marginTop">50dip</item>
         <item name="android:background">@drawable/selector_button</item>
         <item name="android:gravity">center</item>
+        <item name="android:padding">13dip</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:elevation">16dip</item>
     </style>
 
 </resources>
