@@ -27,17 +27,17 @@ import java.util.List;
  * Created by xiey on 2017/10/25.
  */
 
-public class CommonDialog extends Dialog {
+public class XyDialog extends Dialog {
 
-    public CommonDialog(@NonNull Context context) {
+    public XyDialog(@NonNull Context context) {
         super(context);
     }
 
-    public CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
+    public XyDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
     }
 
-    protected CommonDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    protected XyDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -183,9 +183,9 @@ public class CommonDialog extends Dialog {
         }
 
         //只有标题和文字提醒内容+两个按钮
-        public CommonDialog createWarn() {
+        public XyDialog createWarn() {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CommonDialog dialog = new CommonDialog(context, R.style.Dialog);
+            final XyDialog dialog = new XyDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_layout, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -233,9 +233,9 @@ public class CommonDialog extends Dialog {
          *
          * @return
          */
-        public CommonDialog createEdit() {
+        public XyDialog createEdit() {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CommonDialog dialog = new CommonDialog(context, R.style.Dialog);
+            final XyDialog dialog = new XyDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_layout_edit, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -305,9 +305,9 @@ public class CommonDialog extends Dialog {
         }
 
         //单选
-        public CommonDialog createChoose() {
+        public XyDialog createChoose() {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CommonDialog dialog = new CommonDialog(context, R.style.Dialog);
+            final XyDialog dialog = new XyDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_layout_choose, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xiey94.xydialog.dialog.CommonDialog;
+import com.xiey94.xydialog.dialog.XyDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tiShi(View v) {
-        new CommonDialog.Builder(this)
+        new XyDialog.Builder(this)
                 .setTitle("提示框")
                 .setMessage("提示消息内容")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEdit(View v) {
-        new CommonDialog.Builder(this)
+        new XyDialog.Builder(this)
                 .setTitle("输入框")
                 .setHint("请输入内容")
                 .setIsShow(true)
-                .setPositiveButton("确定", new CommonDialog.OnDialogEditClickListener() {
+                .setPositiveButton("确定", new XyDialog.OnDialogEditClickListener() {
                     @Override
                     public void onPositiveButonListener(EditText input, Dialog dialog, int confirm) {
                         Toast.makeText(MainActivity.this, input.getText().toString().trim(), Toast.LENGTH_SHORT).show();
@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         list.add("选项三");
         list.add("选项四");
         list.add("选项五");
-        new CommonDialog.Builder(this)
+        new XyDialog.Builder(this)
                 .setTitle("单选")
-                .setOnChooseOneButton(list, new CommonDialog.OnDialogChooseClickListener() {
+                .setOnChooseOneButton(list, new XyDialog.OnDialogChooseClickListener() {
                     @Override
                     public void onChoose(TextView choose, Dialog dialog) {
                         Toast.makeText(MainActivity.this, "choose.getText():" + choose.getText(), Toast.LENGTH_SHORT).show();
