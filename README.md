@@ -98,7 +98,7 @@ dependencies {
 ```
 
 
-![提示框](https://github.com/xieyang94/xydialog/blob/master/1.png "提示框")
+![提示框](https://github.com/xieyang94/xydialog/blob/master/images/1.png "提示框")
 
 
 
@@ -127,7 +127,7 @@ dependencies {
 ```
 
 
-![输入框](https://github.com/xieyang94/xydialog/images/blob/master/2.png "输入框")
+![输入框](https://github.com/xieyang94/xydialog/blob/master/images/2.png "输入框")
 
 
 ```
