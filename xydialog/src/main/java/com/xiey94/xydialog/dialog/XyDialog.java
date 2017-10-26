@@ -48,7 +48,7 @@ public class XyDialog extends Dialog {
 
     public interface OnDialogChooseClickListener {
         //获取编辑框内容
-        void onChoose(TextView choose, Dialog dialog);
+        void onChoose(TextView choose, Dialog dialog, int whitch);
     }
 
     public static class Builder {
@@ -316,7 +316,7 @@ public class XyDialog extends Dialog {
             ((TextView) layout.findViewById(R.id.title)).setText(title);
 
             LinearLayout linear = layout.findViewById(R.id.linear);
-            for (String s : chooseList) {
+            for (final String s : chooseList) {
                 final TextView textView = new TextView(context);
                 LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 textView.setLayoutParams(lp2);
@@ -328,7 +328,8 @@ public class XyDialog extends Dialog {
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            onDialogChooseClickListener.onChoose(textView, dialog);
+                            int which = chooseList.indexOf(s);
+                            onDialogChooseClickListener.onChoose(textView, dialog, which);
                         }
                     });
                 }

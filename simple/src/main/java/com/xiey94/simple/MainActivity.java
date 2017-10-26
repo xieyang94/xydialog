@@ -23,24 +23,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tiShi(View v) {
+        //构建
         new XyDialog.Builder(this)
+                //标题
                 .setTitle("提示框")
+                //内容
                 .setMessage("提示消息内容")
+                //确定按钮
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
+                //创建提示
                 .createWarn()
                 .show();
     }
 
     public void onEdit(View v) {
+        //构建
         new XyDialog.Builder(this)
+                //标题
                 .setTitle("输入框")
+                //输入提示
                 .setHint("请输入内容")
+                //输入内容是否可见
                 .setIsShow(true)
+                //是否限制输入类型（目前只支持输入数字和字母）
+                .setIsInputType(false)
+                //确定按钮
                 .setPositiveButton("确定", new XyDialog.OnDialogEditClickListener() {
                     @Override
                     public void onPositiveButonListener(EditText input, Dialog dialog, int confirm) {
@@ -48,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
+                //创建输入
                 .createEdit()
                 .show();
     }
@@ -63,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("单选")
                 .setOnChooseOneButton(list, new XyDialog.OnDialogChooseClickListener() {
                     @Override
-                    public void onChoose(TextView choose, Dialog dialog) {
-                        Toast.makeText(MainActivity.this, "choose.getText():" + choose.getText(), Toast.LENGTH_SHORT).show();
+                    public void onChoose(TextView choose, Dialog dialog,int whitch) {
+                        Toast.makeText(MainActivity.this, "" +whitch+"--"+ choose.getText(), Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 })
