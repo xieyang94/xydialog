@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.xiey94.xydialog.R;
 import com.xiey94.xydialog.util.XyCommon;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -76,6 +77,8 @@ public class XyDialog extends Dialog {
         private OnDialogChooseClickListener onDialogChooseClickListener;
         //单选的选项
         private List<String> chooseList;
+        //单项的选择
+        private int resArray;
 
 
         public Builder(Context context) {
@@ -130,6 +133,13 @@ public class XyDialog extends Dialog {
 
         public Builder setOnChooseOneButton(List<String> chooseList, OnDialogChooseClickListener listener) {
             this.chooseList = chooseList;
+            this.onDialogChooseClickListener = listener;
+            return this;
+        }
+
+        public Builder setOnChooseOneButton(int resArray, OnDialogChooseClickListener listener) {
+            String[] items = context.getResources().getStringArray(resArray);
+            this.chooseList = Arrays.asList(items);
             this.onDialogChooseClickListener = listener;
             return this;
         }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="select_dialog_change_pwd">
+        <item>手机方式修改</item>
+        <item>邮箱方式修改</item>
+    </string-array>
+</resources>
