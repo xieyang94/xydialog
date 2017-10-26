@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiey94.xydialog.dialog.XyDialog;
+import com.xiey94.xydialog.dialog.XyDialog2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,4 +65,28 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
     }
+
+    public void tiShi2(View v) {
+        new XyDialog2.Builder(this)
+                .title("Dialog2")
+                .message("这是第二种Dialog")
+                .cancelTouchout(true)
+                .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener() {
+                    @Override
+                    public void onNotice(View view, Dialog dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButtonListener("取消", new XyDialog2.OnNoticeClickListener() {
+                    @Override
+                    public void onNotice(View view, Dialog dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .createNoticeDialog()
+                .show();
+        ;
+
+    }
+
 }

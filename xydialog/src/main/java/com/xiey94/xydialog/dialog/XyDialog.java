@@ -3,6 +3,7 @@ package com.xiey94.xydialog.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -42,13 +43,31 @@ public class XyDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
+    /**
+     * 有EditText的接口
+     */
     public interface OnDialogEditClickListener {
-        //获取编辑框内容
+        /**
+         * 获取编辑框内容
+         *
+         * @param input   输入控件
+         * @param dialog  当前的Dialog对象
+         * @param confirm 索引
+         */
         void onPositiveButonListener(EditText input, Dialog dialog, int confirm);
     }
 
+    /**
+     * 用于单选的接口
+     */
     public interface OnDialogChooseClickListener {
-        //获取编辑框内容
+        /**
+         * 获取单选内容
+         *
+         * @param choose 选取的单选项
+         * @param dialog 当前的Dialog对象
+         * @param whitch 索引
+         */
         void onChoose(TextView choose, Dialog dialog, int whitch);
     }
 
@@ -176,7 +195,9 @@ public class XyDialog extends Dialog {
             WindowManager windowManager = ((Activity) context).getWindowManager();
             Display display = windowManager.getDefaultDisplay();
             WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-            lp.width = (int) (display.getWidth()) - 200; //设置宽度
+            Point point = new Point();
+            display.getSize(point);
+            lp.width = point.x - 200;
             dialog.getWindow().setAttributes(lp);
         }
 
