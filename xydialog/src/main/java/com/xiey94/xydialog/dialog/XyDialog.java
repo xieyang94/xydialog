@@ -77,9 +77,6 @@ public class XyDialog extends Dialog {
         private OnDialogChooseClickListener onDialogChooseClickListener;
         //单选的选项
         private List<String> chooseList;
-        //单项的选择
-        private int resArray;
-
 
         public Builder(Context context) {
             this.context = context;
