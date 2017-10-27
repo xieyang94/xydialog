@@ -340,8 +340,9 @@ public class XyDialog extends Dialog {
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
             setDialogWidth(dialog);
-
-            ((TextView) layout.findViewById(R.id.title)).setText(title);
+            if (title != null) {
+                ((TextView) layout.findViewById(R.id.title)).setText(title);
+            }
 
             LinearLayout linear = layout.findViewById(R.id.linear);
             for (final String s : chooseList) {

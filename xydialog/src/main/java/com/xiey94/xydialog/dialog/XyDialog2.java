@@ -5,19 +5,31 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.NumberKeyListener;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiey94.xydialog.R;
+import com.xiey94.xydialog.util.XyCommon;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Created by xiey on 2017/10/26.
+ * @author xieyang
+ *         created at 2017/10/26.
  */
-
 public class XyDialog2 extends Dialog {
     private Context context;
     private boolean cancelTouchout;
@@ -37,15 +49,24 @@ public class XyDialog2 extends Dialog {
         view = builder.view;
     }
 
-    public interface OnNoticeClickListener {
+    public interface OnNoticeClickListener<T> {
         /**
          * 点击响应方法
          *
-         * @param view   获取对应的View
-         * @param dialog 当前的Dialog对象
-         * @param which  索引
+         * @param view
+         * @param dialog
+         * @param which
          */
-        void onNotice(View view, Dialog dialog, int which);
+        void onNotice(T view, Dialog dialog, int which);
+    }
+
+    /**
+     * 多选接口
+     *
+     * @param <T>
+     */
+    public interface OnMulClickListener<T> {
+        void onMulChoose(T view, Dialog dialog, List<String> strList, List<Integer> indexList);
     }
 
     @Override
@@ -67,7 +88,7 @@ public class XyDialog2 extends Dialog {
 
     public static final class Builder {
         private Context context;
-        private boolean cancelTouchout;
+        private boolean cancelTouchout = true;
         private View view;
         private int resStyle = -1;
 
@@ -78,6 +99,13 @@ public class XyDialog2 extends Dialog {
         private String ok;
         private String cancel;
         private XyDialog2 xyDialog2;
+        private String hint;
+        private boolean isShow;
+        private boolean isNumber;
+        private boolean isChar;
+        private boolean isNumberAndChar;
+        private List<String> chooseList;
+        private OnMulClickListener mulListener;
 
         public Builder(Context context) {
             this.context = context;
@@ -100,6 +128,36 @@ public class XyDialog2 extends Dialog {
 
         public Builder message(int message) {
             this.message = (String) context.getText(message);
+            return this;
+        }
+
+        public Builder hint(String hint) {
+            this.hint = hint;
+            return this;
+        }
+
+        public Builder hint(int hint) {
+            this.hint = (String) context.getText(hint);
+            return this;
+        }
+
+        public Builder isShow(boolean isShow) {
+            this.isShow = isShow;
+            return this;
+        }
+
+        public Builder isNumber(boolean isNumber) {
+            this.isNumber = isNumber;
+            return this;
+        }
+
+        public Builder isChar(boolean isChar) {
+            this.isChar = isChar;
+            return this;
+        }
+
+        public Builder isNumberAndChar(boolean isNumberAndChar) {
+            this.isNumberAndChar = isNumberAndChar;
             return this;
         }
 
@@ -129,13 +187,41 @@ public class XyDialog2 extends Dialog {
             return this;
         }
 
-        public Builder setPositiveButtonListener(String ok, OnNoticeClickListener okListener) {
+        public <T> Builder setPositiveButtonListener(String ok, OnNoticeClickListener<T> okListener) {
             this.ok = ok;
             this.okListener = okListener;
             return this;
         }
 
-        public Builder setNegativeButtonListener(String cancel, OnNoticeClickListener cancelListener) {
+        public <T> Builder setPositiveButtonListener(List<String> chooseList, OnNoticeClickListener<T> okListener) {
+            this.chooseList = chooseList;
+            this.okListener = okListener;
+            return this;
+        }
+
+        public <T> Builder setPositiveButtonListener(int chooseList, OnNoticeClickListener<T> okListener) {
+            String[] items = context.getResources().getStringArray(chooseList);
+            this.chooseList = Arrays.asList(items);
+            this.okListener = okListener;
+            return this;
+        }
+
+        public <T> Builder setPositiveButtonListener(String ok, List<String> chooseList, OnMulClickListener<T> mulListener) {
+            this.ok = ok;
+            this.chooseList = chooseList;
+            this.mulListener = mulListener;
+            return this;
+        }
+
+        public <T> Builder setPositiveButtonListener(String ok, int chooseList, OnMulClickListener<T> mulListener) {
+            this.ok = ok;
+            String[] items = context.getResources().getStringArray(chooseList);
+            this.chooseList = Arrays.asList(items);
+            this.mulListener = mulListener;
+            return this;
+        }
+
+        public <T> Builder setNegativeButtonListener(String cancel, OnNoticeClickListener<T> cancelListener) {
             this.cancel = cancel;
             this.cancelListener = cancelListener;
             return this;
@@ -143,7 +229,7 @@ public class XyDialog2 extends Dialog {
 
         //创建提示Dialog
         public XyDialog2 createNoticeDialog() {
-            view = LayoutInflater.from(context).inflate(R.layout.dialog2_layout_notice, null);
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null);
             if (title != null) {
                 ((TextView) view.findViewById(R.id.title)).setText(title);
             }
@@ -153,7 +239,7 @@ public class XyDialog2 extends Dialog {
             }
 
             if (okListener != null && ok != null) {
-                TextView okTv = view.findViewById(R.id.ok);
+                TextView okTv = view.findViewById(R.id.positiveButton);
                 okTv.setText(ok);
                 okTv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -162,11 +248,11 @@ public class XyDialog2 extends Dialog {
                     }
                 });
             } else {
-                view.findViewById(R.id.ok).setVisibility(View.GONE);
+                view.findViewById(R.id.positiveButton).setVisibility(View.GONE);
             }
 
             if (cancelListener != null && cancel != null) {
-                TextView cancelTv = view.findViewById(R.id.cancel);
+                TextView cancelTv = view.findViewById(R.id.negativeButton);
                 cancelTv.setText(cancel);
                 cancelTv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -175,7 +261,7 @@ public class XyDialog2 extends Dialog {
                     }
                 });
             } else {
-                view.findViewById(R.id.cancel).setVisibility(View.GONE);
+                view.findViewById(R.id.negativeButton).setVisibility(View.GONE);
             }
 
             if (resStyle != -1) {
@@ -185,6 +271,219 @@ public class XyDialog2 extends Dialog {
             }
             return xyDialog2;
         }
+
+        //创建输入密码对话框
+        public XyDialog2 createPwdDialog() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_edit, null);
+
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            }
+
+            final EditText input = view.findViewById(R.id.message);
+            input.setFocusable(true);
+            if (hint != null) {
+                input.setHint(hint);
+            }
+
+            if (!isShow) {
+                input.setTransformationMethod(new PasswordTransformationMethod());
+            }
+            if (isNumber) {
+                input.setKeyListener(new NumberKeyListener() {
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        return new char[]{
+                                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                        };
+                    }
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_CLASS_PHONE;
+                    }
+                });
+            }
+
+            if (isChar) {
+                input.setKeyListener(new NumberKeyListener() {
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        return new char[]{
+                                'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                                'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                                'o', 'p', 'q', 'r', 's', 't',
+                                'u', 'v', 'w', 'x', 'y', 'z',
+                                'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                                'H', 'I', 'J', 'K', 'L', 'M', 'N',
+                                'O', 'P', 'Q', 'R', 'S', 'T',
+                                'U', 'V', 'W', 'X', 'Y', 'Z'
+                        };
+                    }
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                    }
+                });
+            }
+
+            if (isNumberAndChar) {
+                input.setKeyListener(new NumberKeyListener() {
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        return new char[]{
+                                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                                'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                                'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                                'o', 'p', 'q', 'r', 's', 't',
+                                'u', 'v', 'w', 'x', 'y', 'z',
+                                'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                                'H', 'I', 'J', 'K', 'L', 'M', 'N',
+                                'O', 'P', 'Q', 'R', 'S', 'T',
+                                'U', 'V', 'W', 'X', 'Y', 'Z'
+                        };
+                    }
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_CLASS_PHONE;
+                    }
+                });
+            }
+
+            if (okListener != null && ok != null) {
+                TextView okTv = view.findViewById(R.id.positiveButton);
+                okTv.setText(ok);
+                okTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        okListener.onNotice(input, xyDialog2, -1);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.positiveButton).setVisibility(View.GONE);
+            }
+
+            if (cancelListener != null && cancel != null) {
+                TextView cancelTv = view.findViewById(R.id.negativeButton);
+                cancelTv.setText(cancel);
+                cancelTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelListener.onNotice(null, xyDialog2, -1);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.negativeButton).setVisibility(View.GONE);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
+            return xyDialog2;
+        }
+
+        //创建单选框
+        public XyDialog2 createChooseButton() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_choose, null);
+
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            }
+
+            LinearLayout linear = view.findViewById(R.id.linear);
+
+            for (final String s : chooseList) {
+                final TextView textView = new TextView(context);
+                LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                textView.setLayoutParams(lp2);
+                textView.setText(s);
+                textView.setPadding(40, 25, 40, 25);
+                textView.setTextSize(XyCommon.dip2px(context, 6));
+                textView.setBackgroundResource(R.drawable.xy_selector_text);
+                if (okListener != null) {
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int which = chooseList.indexOf(s);
+                            okListener.onNotice(textView, xyDialog2, which);
+                        }
+                    });
+                }
+                linear.addView(textView);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
+
+            return xyDialog2;
+        }
+
+        //多选
+        public XyDialog2 createChooseMulButton() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_mul_choose, null);
+
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            }
+
+            LinearLayout linear = view.findViewById(R.id.linear);
+            final List<String> strList = new ArrayList<String>();
+            final List<Integer> indexList = new ArrayList<Integer>();
+            final List<CheckBox> checkBoxList = new ArrayList<CheckBox>();
+
+            for (final String s : chooseList) {
+                final CheckBox checkBox = new CheckBox(context);
+                LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                checkBox.setLayoutParams(lp2);
+                checkBox.setText(s);
+                checkBox.setPadding(40, 25, 40, 25);
+                checkBox.setTextSize(XyCommon.dip2px(context, 6));
+                linear.addView(checkBox);
+                checkBoxList.add(checkBox);
+            }
+
+            if (mulListener != null && ok != null) {
+                TextView okTv = view.findViewById(R.id.positiveButton);
+                okTv.setText(ok);
+                okTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mulListener.onMulChoose(checkBoxList, xyDialog2, strList, indexList);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.positiveButton).setVisibility(View.GONE);
+            }
+
+            if (cancelListener != null && cancel != null) {
+                TextView cancelTv = view.findViewById(R.id.negativeButton);
+                cancelTv.setText(cancel);
+                cancelTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelListener.onNotice(null, xyDialog2, -1);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.negativeButton).setVisibility(View.GONE);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
+
+            return xyDialog2;
+        }
+
 
     }
 }

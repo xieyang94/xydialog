@@ -5,12 +5,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiey94.xydialog.dialog.XyDialog;
 import com.xiey94.xydialog.dialog.XyDialog2;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,23 +73,65 @@ public class MainActivity extends AppCompatActivity {
         new XyDialog2.Builder(this)
                 .title("Dialog2")
                 .message("这是第二种Dialog")
-                .cancelTouchout(true)
-                .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener() {
+                .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<Object>() {
                     @Override
-                    public void onNotice(View view, Dialog dialog, int which) {
+                    public void onNotice(Object view, Dialog dialog, int which) {
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButtonListener("取消", new XyDialog2.OnNoticeClickListener() {
+                .setNegativeButtonListener("取消", new XyDialog2.OnNoticeClickListener<Object>() {
                     @Override
-                    public void onNotice(View view, Dialog dialog, int which) {
+                    public void onNotice(Object view, Dialog dialog, int which) {
                         dialog.dismiss();
                     }
                 })
                 .createNoticeDialog()
                 .show();
-        ;
+    }
 
+    public void onEdit2(View v) {
+        new XyDialog2.Builder(this)
+                .title("Dialog2-输入密码")
+                .isChar(true)
+                .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<EditText>() {
+                    @Override
+                    public void onNotice(EditText view, Dialog dialog, int which) {
+                        String input = view.getText().toString().trim();
+                        Toast.makeText(MainActivity.this, input, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .createPwdDialog()
+                .show();
+    }
+
+    public void onChooseOne2(View v) {
+        new XyDialog2.Builder(this)
+                .title("单选")
+                .setPositiveButtonListener(R.array.select_dialog_change_pwd, new XyDialog2.OnNoticeClickListener<TextView>() {
+                    @Override
+                    public void onNotice(TextView view, Dialog dialog, int which) {
+                        Toast.makeText(MainActivity.this, "" + which + "--" + view.getText(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .createChooseButton()
+                .show();
+    }
+
+    public void onChooseMul(View v) {
+        new XyDialog2.Builder(this)
+                .title("多选")
+                .setPositiveButtonListener("确定", R.array.select_dialog_change_pwd, new XyDialog2.OnMulClickListener<List<CheckBox>>() {
+                    @Override
+                    public void onMulChoose(List<CheckBox> checkBoxList, Dialog dialog, List<String> strList, List<Integer> indexList) {
+
+                        dialog.dismiss();
+                    }
+                })
+
+                .createChooseMulButton()
+                .show();
     }
 
 }

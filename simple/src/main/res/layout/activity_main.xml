@@ -54,8 +54,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dip"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="100dip">
 
             <TextView
                 android:layout_width="match_parent"
@@ -92,6 +92,21 @@
                 style="@style/TextView"
                 android:onClick="tiShi2"
                 android:text="提示框" />
+
+            <TextView
+                style="@style/TextView"
+                android:onClick="onEdit2"
+                android:text="输入框" />
+
+            <TextView
+                style="@style/TextView"
+                android:onClick="onChooseOne"
+                android:text="单选框" />
+
+            <TextView
+                style="@style/TextView"
+                android:onClick="onChooseMul"
+                android:text="多选框" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
