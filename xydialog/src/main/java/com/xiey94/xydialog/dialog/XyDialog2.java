@@ -82,7 +82,7 @@ public class XyDialog2 extends Dialog {
         WindowManager.LayoutParams lp = win.getAttributes();
         Point point = new Point();
         display.getSize(point);
-        lp.width = point.x - 200;
+        lp.width = point.x - 100;
         win.setAttributes(lp);
     }
 
