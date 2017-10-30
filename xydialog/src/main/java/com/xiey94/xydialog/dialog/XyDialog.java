@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -197,7 +198,11 @@ public class XyDialog extends Dialog {
             WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
             Point point = new Point();
             display.getSize(point);
-            lp.width = point.x - 100;
+            if (Build.VERSION.SDK_INT>=21) {
+                lp.width = point.x - 200;
+            }else {
+                lp.width = point.x-40;
+            }
             dialog.getWindow().setAttributes(lp);
         }
 
@@ -351,7 +356,11 @@ public class XyDialog extends Dialog {
                 textView.setLayoutParams(lp2);
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
-                textView.setTextSize(XyCommon.dip2px(context, 6));
+                if (Build.VERSION.SDK_INT>=21) {
+                    textView.setTextSize(XyCommon.dip2px(context, 6));
+                }else {
+                    textView.setTextSize(XyCommon.dip2px(context, 10));
+                }
                 textView.setBackgroundResource(R.drawable.xy_selector_text);
                 if (onDialogChooseClickListener != null) {
                     textView.setOnClickListener(new View.OnClickListener() {

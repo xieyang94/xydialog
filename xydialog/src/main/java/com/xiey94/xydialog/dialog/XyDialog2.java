@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.NumberKeyListener;
@@ -82,7 +83,11 @@ public class XyDialog2 extends Dialog {
         WindowManager.LayoutParams lp = win.getAttributes();
         Point point = new Point();
         display.getSize(point);
-        lp.width = point.x - 100;
+        if (Build.VERSION.SDK_INT>=21) {
+            lp.width = point.x - 200;
+        }else {
+            lp.width = point.x-40;
+        }
         win.setAttributes(lp);
     }
 
@@ -402,7 +407,11 @@ public class XyDialog2 extends Dialog {
                 textView.setLayoutParams(lp2);
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
-                textView.setTextSize(XyCommon.dip2px(context, 6));
+                if (Build.VERSION.SDK_INT>=21) {
+                    textView.setTextSize(XyCommon.dip2px(context, 6));
+                }else {
+                    textView.setTextSize(XyCommon.dip2px(context, 10));
+                }
                 textView.setBackgroundResource(R.drawable.xy_selector_text);
                 if (okListener != null) {
                     textView.setOnClickListener(new View.OnClickListener() {
@@ -444,7 +453,11 @@ public class XyDialog2 extends Dialog {
                 checkBox.setLayoutParams(lp2);
                 checkBox.setText(s);
                 checkBox.setPadding(40, 25, 40, 25);
-                checkBox.setTextSize(XyCommon.dip2px(context, 6));
+                if (Build.VERSION.SDK_INT>=21) {
+                    checkBox.setTextSize(XyCommon.dip2px(context, 6));
+                }else {
+                    checkBox.setTextSize(XyCommon.dip2px(context, 10));
+                }
                 linear.addView(checkBox);
                 checkBoxList.add(checkBox);
             }
