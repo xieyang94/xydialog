@@ -100,6 +100,8 @@ public class XyDialog extends Dialog {
         private List<String> chooseList;
         //是否弹出软键盘
         private boolean isShowSoftKeyboard = true;
+        //设置输入框内容回显
+        private String editContent;
 
         public Builder(Context context) {
             this.context = context;
@@ -148,6 +150,11 @@ public class XyDialog extends Dialog {
 
         public Builder setIsInputType(boolean isInputType) {
             this.isInputType = isInputType;
+            return this;
+        }
+
+        public Builder setEditContent(String editContent) {
+            this.editContent = editContent;
             return this;
         }
 
@@ -290,6 +297,11 @@ public class XyDialog extends Dialog {
                 if (hint != null) {
                     input.setHint(hint);
                 }
+
+                if (editContent != null) {
+                    input.setText(editContent);
+                }
+
                 if (!isShow) {
                     input.setTransformationMethod(new PasswordTransformationMethod());
                 }

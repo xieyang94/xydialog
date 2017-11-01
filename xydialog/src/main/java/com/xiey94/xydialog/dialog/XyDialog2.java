@@ -113,6 +113,7 @@ public class XyDialog2 extends Dialog {
         private List<String> chooseList;
         private OnMulClickListener mulListener;
         private boolean isShowSoftKeyboard = true;
+        private String editContent;
 
         public Builder(Context context) {
             this.context = context;
@@ -160,6 +161,11 @@ public class XyDialog2 extends Dialog {
 
         public Builder isChar(boolean isChar) {
             this.isChar = isChar;
+            return this;
+        }
+
+        public Builder setEditContent(String editContent) {
+            this.editContent = editContent;
             return this;
         }
 
@@ -296,6 +302,10 @@ public class XyDialog2 extends Dialog {
             input.setFocusable(true);
             if (hint != null) {
                 input.setHint(hint);
+            }
+
+            if (editContent != null) {
+                input.setText(editContent);
             }
 
             if (!isShow) {

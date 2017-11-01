@@ -38,7 +38,7 @@ allprojects {
 
 ```
 dependencies {
-    	compile 'com.github.xieyang94:xydialog:0.1.4'
+    	compile 'com.github.xieyang94:xydialog:0.1.5'
 	}
 ```
 
@@ -70,7 +70,7 @@ dependencies {
 <dependency>
         <groupId>com.github.xieyang94</groupId>
 	    <artifactId>xydialog</artifactId>
-	    <version>0.1.4</version>
+	    <version>0.1.5</version>
 	</dependency>
 ```
 
