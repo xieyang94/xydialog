@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -97,6 +98,8 @@ public class XyDialog extends Dialog {
         private OnDialogChooseClickListener onDialogChooseClickListener;
         //单选的选项
         private List<String> chooseList;
+        //是否弹出软键盘
+        private boolean isShowSoftKeyboard = true;
 
         public Builder(Context context) {
             this.context = context;
@@ -145,6 +148,11 @@ public class XyDialog extends Dialog {
 
         public Builder setIsInputType(boolean isInputType) {
             this.isInputType = isInputType;
+            return this;
+        }
+
+        public Builder isShowSoftKeyboard(boolean isShowSoftKeyboard) {
+            this.isShowSoftKeyboard = isShowSoftKeyboard;
             return this;
         }
 
@@ -198,10 +206,10 @@ public class XyDialog extends Dialog {
             WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
             Point point = new Point();
             display.getSize(point);
-            if (Build.VERSION.SDK_INT>=21) {
+            if (Build.VERSION.SDK_INT >= 21) {
                 lp.width = point.x - 200;
-            }else {
-                lp.width = point.x-40;
+            } else {
+                lp.width = point.x - 40;
             }
             dialog.getWindow().setAttributes(lp);
         }
@@ -275,9 +283,10 @@ public class XyDialog extends Dialog {
             setDialogWidth(dialog);
 
             ((TextView) layout.findViewById(R.id.title)).setText(title);
+            final EditText input = layout.findViewById(R.id.message);
             if (positiveButtonText != null) {
                 ((TextView) layout.findViewById(R.id.positiveButton)).setText(positiveButtonText);
-                final EditText input = layout.findViewById(R.id.message);
+
                 if (hint != null) {
                     input.setHint(hint);
                 }
@@ -334,6 +343,21 @@ public class XyDialog extends Dialog {
             }
 
             setContentViewEnd(contentView, layout, dialog);
+            if (isShowSoftKeyboard) {
+                input.setFocusable(true);
+                input.setFocusableInTouchMode(true);
+                input.requestFocus();
+                input.post(new Runnable() {
+                    @Override
+                    public void
+                    run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) ((Activity) context).
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInput(0,
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                });
+            }
             return dialog;
         }
 
@@ -356,9 +380,9 @@ public class XyDialog extends Dialog {
                 textView.setLayoutParams(lp2);
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
-                if (Build.VERSION.SDK_INT>=21) {
+                if (Build.VERSION.SDK_INT >= 21) {
                     textView.setTextSize(XyCommon.dip2px(context, 6));
-                }else {
+                } else {
                     textView.setTextSize(XyCommon.dip2px(context, 10));
                 }
                 textView.setBackgroundResource(R.drawable.xy_selector_text);
@@ -382,4 +406,8 @@ public class XyDialog extends Dialog {
 
     }
 
+    public void showE(EditText edit) {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(edit, InputMethodManager.SHOW_IMPLICIT);
+    }
 }

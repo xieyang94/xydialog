@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -83,10 +84,10 @@ public class XyDialog2 extends Dialog {
         WindowManager.LayoutParams lp = win.getAttributes();
         Point point = new Point();
         display.getSize(point);
-        if (Build.VERSION.SDK_INT>=21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             lp.width = point.x - 200;
-        }else {
-            lp.width = point.x-40;
+        } else {
+            lp.width = point.x - 40;
         }
         win.setAttributes(lp);
     }
@@ -111,6 +112,7 @@ public class XyDialog2 extends Dialog {
         private boolean isNumberAndChar;
         private List<String> chooseList;
         private OnMulClickListener mulListener;
+        private boolean isShowSoftKeyboard = true;
 
         public Builder(Context context) {
             this.context = context;
@@ -163,6 +165,11 @@ public class XyDialog2 extends Dialog {
 
         public Builder isNumberAndChar(boolean isNumberAndChar) {
             this.isNumberAndChar = isNumberAndChar;
+            return this;
+        }
+
+        public Builder isShowSoftKeyboard(boolean isShowSoftKeyboard) {
+            this.isShowSoftKeyboard = isShowSoftKeyboard;
             return this;
         }
 
@@ -388,6 +395,22 @@ public class XyDialog2 extends Dialog {
             } else {
                 xyDialog2 = new XyDialog2(this, R.style.Dialog);
             }
+
+            if (isShowSoftKeyboard) {
+                input.setFocusable(true);
+                input.setFocusableInTouchMode(true);
+                input.requestFocus();
+                input.post(new Runnable() {
+                    @Override
+                    public void
+                    run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) ((Activity) context).
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInput(0,
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                });
+            }
             return xyDialog2;
         }
 
@@ -407,9 +430,9 @@ public class XyDialog2 extends Dialog {
                 textView.setLayoutParams(lp2);
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
-                if (Build.VERSION.SDK_INT>=21) {
+                if (Build.VERSION.SDK_INT >= 21) {
                     textView.setTextSize(XyCommon.dip2px(context, 6));
-                }else {
+                } else {
                     textView.setTextSize(XyCommon.dip2px(context, 10));
                 }
                 textView.setBackgroundResource(R.drawable.xy_selector_text);
@@ -453,9 +476,9 @@ public class XyDialog2 extends Dialog {
                 checkBox.setLayoutParams(lp2);
                 checkBox.setText(s);
                 checkBox.setPadding(40, 25, 40, 25);
-                if (Build.VERSION.SDK_INT>=21) {
+                if (Build.VERSION.SDK_INT >= 21) {
                     checkBox.setTextSize(XyCommon.dip2px(context, 6));
-                }else {
+                } else {
                     checkBox.setTextSize(XyCommon.dip2px(context, 10));
                 }
                 linear.addView(checkBox);
