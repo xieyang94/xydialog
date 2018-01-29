@@ -108,6 +108,11 @@
                 android:onClick="onChooseMul"
                 android:text="多选框" />
 
+            <TextView
+                style="@style/TextView"
+                android:onClick="onChooseProgress"
+                android:text="加载框" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

@@ -530,6 +530,27 @@ public class XyDialog2 extends Dialog {
             return xyDialog2;
         }
 
+        //加载框
+        public XyDialog2 createProgressDialog() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_progress, null);
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            } else {
+                view.findViewById(R.id.title).setVisibility(View.GONE);
+            }
+
+            if (message != null) {
+                ((TextView) view.findViewById(R.id.message)).setText(message);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
+            return xyDialog2;
+        }
+
 
     }
 }

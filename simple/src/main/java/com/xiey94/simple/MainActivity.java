@@ -16,7 +16,7 @@ import com.xiey94.xydialog.dialog.XyDialog2;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private String str="";
+    private String str = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("确定", new XyDialog.OnDialogEditClickListener() {
                     @Override
                     public void onPositiveButonListener(EditText input, Dialog dialog, int confirm) {
-                        str=input.getText().toString().trim();
+                        str = input.getText().toString().trim();
                         Toast.makeText(MainActivity.this, input.getText().toString().trim(), Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
@@ -135,6 +135,14 @@ public class MainActivity extends AppCompatActivity {
 
                 .createChooseMulButton()
                 .show();
+    }
+
+    public void onChooseProgress(View v) {
+        new XyDialog2.Builder(this)
+                .message("正在加载...")
+                .createProgressDialog()
+                .show();
+
     }
 
 }
