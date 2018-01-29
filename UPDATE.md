@@ -16,3 +16,6 @@
     <!--进度条颜色-->
     <color name="xydialog_colorProgressBar">#63AEFF</color>
 ```
+
+**v0.1.8**
+>* 去掉了layout-v21，将点击效果的不同写到了values-v21中的styles中
