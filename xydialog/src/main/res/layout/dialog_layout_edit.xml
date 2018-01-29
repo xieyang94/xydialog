@@ -22,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@null"
-        android:maxLines="1"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:maxLines="1"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:singleLine="true"
@@ -38,12 +38,13 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/Dialog.TextView"
             android:id="@+id/negativeButton"
+            style="@style/Dialog.TextView"
             android:layout_width="60dip"
             android:layout_height="40dip"
             android:gravity="center"
-            android:text="取消" />
+            android:text="取消"
+            android:textColor="@color/xy_selector_text" />
 
         <Space
             android:layout_width="0dip"
@@ -51,13 +52,14 @@
             android:layout_weight="1" />
 
         <TextView
-            style="@style/Dialog.TextView"
             android:id="@+id/positiveButton"
+            style="@style/Dialog.TextView"
             android:layout_width="60dip"
             android:layout_height="40dip"
             android:layout_gravity="end|right"
             android:gravity="center"
-            android:text="确定" />
+            android:text="确定"
+            android:textColor="@color/xy_selector_text" />
     </LinearLayout>
 
 </LinearLayout>

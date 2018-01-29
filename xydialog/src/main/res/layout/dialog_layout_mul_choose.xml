@@ -19,7 +19,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,11 +28,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/Dialog.TextView"
             android:id="@+id/negativeButton"
+            style="@style/Dialog.TextView"
             android:layout_width="60dip"
             android:layout_height="40dip"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/xy_selector_text" />
 
         <Space
             android:layout_width="0dip"
@@ -40,11 +41,12 @@
             android:layout_weight="1" />
 
         <TextView
-            style="@style/Dialog.TextView"
             android:id="@+id/positiveButton"
+            style="@style/Dialog.TextView"
             android:layout_width="60dip"
             android:layout_height="40dip"
-            android:layout_gravity="end|right" />
+            android:layout_gravity="end|right"
+            android:textColor="@color/xy_selector_text" />
     </LinearLayout>
 
 </LinearLayout>

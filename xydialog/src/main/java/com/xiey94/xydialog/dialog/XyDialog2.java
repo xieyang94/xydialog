@@ -433,7 +433,6 @@ public class XyDialog2 extends Dialog {
             }
 
             LinearLayout linear = view.findViewById(R.id.linear);
-
             for (final String s : chooseList) {
                 final TextView textView = new TextView(context);
                 LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

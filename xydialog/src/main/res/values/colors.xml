@@ -18,4 +18,12 @@
     <color name="xydialog_colorEditText">#000000</color>
     <!--进度条颜色-->
     <color name="xydialog_colorProgressBar">#63AEFF</color>
+    <!--背景颜色-->
+    <color name="xydialog_colorBackground">#ffffff</color>
+    <!--背景21涟漪效果-->
+    <color name="xydialog_colorRipple">#63AEFF</color>
+    <!--按钮没选中颜色-->
+    <color name="xydialog_colorButton_un">#000000</color>
+    <!--按钮选中颜色-->
+    <color name="xydialog_colorButton">#63AEFF</color>
 </resources>
