@@ -28,6 +28,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/Dialog.TextView"
             android:id="@+id/negativeButton"
             android:layout_width="60dip"
             android:layout_height="40dip"
@@ -39,6 +40,7 @@
             android:layout_weight="1" />
 
         <TextView
+            style="@style/Dialog.TextView"
             android:id="@+id/positiveButton"
             android:layout_width="60dip"
             android:layout_height="40dip"

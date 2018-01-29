@@ -15,5 +15,9 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="Dialog.TextView">
+
+    </style>
+
 
 </resources>

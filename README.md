@@ -208,7 +208,8 @@ dependencies {
 
 ```
 
-
+# Version
+[VERSION.md](https://github.com/xieyang94/xydialog/blob/master/UPDATE.md)
 
 
 
