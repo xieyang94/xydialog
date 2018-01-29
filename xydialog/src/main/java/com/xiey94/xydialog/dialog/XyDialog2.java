@@ -533,7 +533,7 @@ public class XyDialog2 extends Dialog {
         //加载框
         public XyDialog2 createProgressDialog() {
             view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_progress, null);
-            if (title != null) {
+            if (title != null && !title.equals("")) {
                 ((TextView) view.findViewById(R.id.title)).setText(title);
             } else {
                 view.findViewById(R.id.title).setVisibility(View.GONE);

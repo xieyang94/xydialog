@@ -9,4 +9,7 @@
     <color name="theme_pressed">#638FFF</color>
     <color name="theme_text">#10000000</color>
     <color name="theme_text_deep">#000000</color>
+
+    <!--加载框颜色-->
+    <color name="xydialog_colorProgressBar">#63AEFF</color>
 </resources>

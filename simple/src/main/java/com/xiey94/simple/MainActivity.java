@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onChooseProgress(View v) {
         new XyDialog2.Builder(this)
+                .title("")
                 .message("正在加载...")
                 .createProgressDialog()
                 .show();
