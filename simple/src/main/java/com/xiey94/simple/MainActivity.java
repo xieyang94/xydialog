@@ -146,4 +146,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onChooseOneContent(View v) {
+        new XyDialog2.Builder(this)
+                .title("更新")
+                .message("XXX已更新到4.0.1版本")
+                .isNeedLine(true)
+                .setPositiveButtonListener(R.array.select_dialog_notice, new XyDialog2.OnNoticeClickListener<TextView>() {
+                    @Override
+                    public void onNotice(TextView view, Dialog dialog, int which) {
+                        Toast.makeText(MainActivity.this, "" + which + "--" + view.getText(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .createChooseContentButton()
+                .show();
+    }
+
 }

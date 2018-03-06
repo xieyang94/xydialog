@@ -4,4 +4,9 @@
         <item>手机方式修改</item>
         <item>邮箱方式修改</item>
     </string-array>
+    <string-array name="select_dialog_notice">
+        <item>现在升级</item>
+        <item>以后提醒我</item>
+        <item>不，谢谢</item>
+    </string-array>
 </resources>

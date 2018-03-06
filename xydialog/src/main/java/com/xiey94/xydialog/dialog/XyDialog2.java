@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.text.method.NumberKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +115,7 @@ public class XyDialog2 extends Dialog {
         private OnMulClickListener mulListener;
         private boolean isShowSoftKeyboard = true;
         private String editContent;
+        private boolean isNeedLine = false;
 
         public Builder(Context context) {
             this.context = context;
@@ -181,6 +183,11 @@ public class XyDialog2 extends Dialog {
 
         public Builder cancelTouchout(boolean cancelTouchout) {
             this.cancelTouchout = cancelTouchout;
+            return this;
+        }
+
+        public Builder isNeedLine(boolean isNeedLine) {
+            this.isNeedLine = isNeedLine;
             return this;
         }
 
@@ -547,6 +554,63 @@ public class XyDialog2 extends Dialog {
             } else {
                 xyDialog2 = new XyDialog2(this, R.style.Dialog);
             }
+            return xyDialog2;
+        }
+
+        //创建单选提示框
+        public XyDialog2 createChooseContentButton() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_choose_content, null);
+
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            }
+
+            if (context != null) {
+                ((TextView) view.findViewById(R.id.message)).setText(message);
+            }
+
+            LinearLayout linear = view.findViewById(R.id.linear);
+            for (final String s : chooseList) {
+                final TextView textView = new TextView(context);
+                //是否需要分割线
+                if (isNeedLine) {
+                    final View view = new View(context);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, XyCommon.dip2px(context, 1));
+                    view.setLayoutParams(lp);
+                    view.setBackgroundColor(context.getResources().getColor(R.color.xydialog_colorLine));
+                    linear.addView(view);
+                }
+
+                LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                textView.setLayoutParams(lp2);
+                textView.setText(s);
+                textView.setPadding(0, 25, 0, 25);
+                textView.setGravity(Gravity.CENTER);
+                textView.setTextColor(context.getResources().getColor(R.color.xydialog_colorSingle));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    textView.setTextSize(XyCommon.dip2px(context, 6));
+                } else {
+                    textView.setTextSize(XyCommon.dip2px(context, 10));
+                }
+                textView.setBackgroundResource(R.drawable.xy_selector_text);
+                if (okListener != null) {
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int which = chooseList.indexOf(s);
+                            okListener.onNotice(textView, xyDialog2, which);
+                        }
+                    });
+                }
+                linear.addView(textView);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
+
             return xyDialog2;
         }
 

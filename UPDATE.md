@@ -23,6 +23,20 @@
 **v0.1.9**
 >* 精简库代码
 
+**v0.2.0**
+>* 添加了一个加载框
+>* 添加了单选内容框
+>* 添加了一个资源颜色
+```
+    <!--分割线颜色-->
+    <color name="xydialog_colorLine">#efeff5</color>
+    <!--单选文字颜色-->
+    <color name="xydialog_colorSingle">#2269D4</color>
+```
+>* 更改了系统资源颜色
+```
+    <color name="theme">#2269D4</color>
+```
 
 
 

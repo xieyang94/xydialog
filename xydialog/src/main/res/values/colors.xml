@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--系统颜色-->
-    <color name="theme">#63AEFF</color>
+    <color name="theme">#2269D4</color>
     <color name="theme_pressed">#638FFF</color>
     <color name="theme_text">#10000000</color>
     <color name="theme_text_deep">#000000</color>
@@ -26,4 +26,8 @@
     <color name="xydialog_colorButton_un">#000000</color>
     <!--按钮选中颜色-->
     <color name="xydialog_colorButton">#63AEFF</color>
+    <!--分割线颜色-->
+    <color name="xydialog_colorLine">#efeff5</color>
+    <!--单选文字颜色-->
+    <color name="xydialog_colorSingle">#2269D4</color>
 </resources>

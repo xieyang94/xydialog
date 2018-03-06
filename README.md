@@ -38,7 +38,7 @@ allprojects {
 
 ```
 dependencies {
-    	compile 'com.github.xieyang94:xydialog:0.1.5'
+    	compile 'com.github.xieyang94:xydialog:0.2.0'
 	}
 ```
 
@@ -135,6 +135,18 @@ dependencies {
 
 ```
 
+
+- <font size=6>XyDialog2在代码中使用</font>
+
+![提示框](https://github.com/xieyang94/xydialog/blob/master/images/4.png "提示框")
+![输入框](https://github.com/xieyang94/xydialog/blob/master/images/5.png "输入框")
+![单选框](https://github.com/xieyang94/xydialog/blob/master/images/6.png "单选框")
+![多选框](https://github.com/xieyang94/xydialog/blob/master/images/7.png "多选框")
+![加载框](https://github.com/xieyang94/xydialog/blob/master/images/8.png "加载框")
+![单选内容框](https://github.com/xieyang94/xydialog/blob/master/images/9.png "单选内容框")
+
+
+
 ```
         new XyDialog2.Builder(this)
                 .title("Dialog2")
@@ -205,6 +217,33 @@ dependencies {
                 .createChooseMulButton()
                 .show();
 
+
+```
+
+```
+        new XyDialog2.Builder(this)
+                .title("")
+                .message("正在加载...")
+                .createProgressDialog()
+                .show();
+
+
+```
+
+```
+        new XyDialog2.Builder(this)
+                .title("更新")
+                .message("XXX已更新到4.0.1版本")
+                .isNeedLine(true)
+                .setPositiveButtonListener(R.array.select_dialog_notice, new XyDialog2.OnNoticeClickListener<TextView>() {
+                    @Override
+                    public void onNotice(TextView view, Dialog dialog, int which) {
+                        Toast.makeText(MainActivity.this, "" + which + "--" + view.getText(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .createChooseContentButton()
+                .show();
 
 ```
 
