@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         new XyDialog2.Builder(this)
                 .title("Dialog2-输入密码")
                 .digit(6)
+                .hint("最多输入6位")
                 .isChar(true)
                 .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<EditText>() {
                     @Override
