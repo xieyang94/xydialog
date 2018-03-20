@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public void onEdit2(View v) {
         new XyDialog2.Builder(this)
                 .title("Dialog2-输入密码")
+                .digit(6)
                 .isChar(true)
                 .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<EditText>() {
                     @Override

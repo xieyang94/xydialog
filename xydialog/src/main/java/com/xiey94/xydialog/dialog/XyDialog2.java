@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.NumberKeyListener;
 import android.text.method.PasswordTransformationMethod;
@@ -116,6 +117,7 @@ public class XyDialog2 extends Dialog {
         private boolean isShowSoftKeyboard = true;
         private String editContent;
         private boolean isNeedLine = false;
+        private int digit = -1;
 
         public Builder(Context context) {
             this.context = context;
@@ -163,6 +165,11 @@ public class XyDialog2 extends Dialog {
 
         public Builder isChar(boolean isChar) {
             this.isChar = isChar;
+            return this;
+        }
+
+        public Builder digit(int digit) {
+            this.digit = digit;
             return this;
         }
 
@@ -307,6 +314,11 @@ public class XyDialog2 extends Dialog {
 
             final EditText input = view.findViewById(R.id.message);
             input.setFocusable(true);
+
+            if (digit != -1) {
+                input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(digit)});
+            }
+
             if (hint != null) {
                 input.setHint(hint);
             }
