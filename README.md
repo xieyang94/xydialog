@@ -144,6 +144,7 @@ dependencies {
 ![多选框](https://github.com/xieyang94/xydialog/blob/master/images/7.png "多选框")
 ![加载框](https://github.com/xieyang94/xydialog/blob/master/images/8.png "加载框")
 ![单选内容框](https://github.com/xieyang94/xydialog/blob/master/images/9.png "单选内容框")
+![密码输入框](https://github.com/xieyang94/xydialog/blob/master/images/10.png "密码输入框")
 
 
 
@@ -246,6 +247,25 @@ dependencies {
                 .show();
 
 ```
+
+```
+        new XyDialog2.Builder(this)
+                .title("Dialog2-输入密码")
+                .digit(6)
+                .isNumber(true)
+                .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<EditText>() {
+                    @Override
+                    public void onNotice(EditText view, Dialog dialog, int which) {
+                        String input = view.getText().toString().trim();
+                        Toast.makeText(MainActivity.this, input, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .createPwd2Dialog()
+                .show();
+
+```
+
 
 # Version
 [VERSION.md](https://github.com/xieyang94/xydialog/blob/master/UPDATE.md)

@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.xiey94.xydialog.R;
 import com.xiey94.xydialog.util.XyCommon;
+import com.xiey94.xydialog.view.PasswordInputView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -442,6 +443,146 @@ public class XyDialog2 extends Dialog {
             }
             return xyDialog2;
         }
+
+        //创建输入密码对话框2
+        public XyDialog2 createPwd2Dialog() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_password, null);
+
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            }
+
+            final PasswordInputView input = view.findViewById(R.id.message);
+            input.setFocusable(true);
+
+            if (digit != -1) {
+                input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(digit)});
+            }
+
+            if (hint != null) {
+                input.setHint(hint);
+            }
+
+            if (editContent != null) {
+                input.setText(editContent);
+            }
+
+            if (!isShow) {
+                input.setTransformationMethod(new PasswordTransformationMethod());
+            }
+            if (isNumber) {
+                input.setKeyListener(new NumberKeyListener() {
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        return new char[]{
+                                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                        };
+                    }
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_CLASS_PHONE;
+                    }
+                });
+            }
+
+            if (isChar) {
+                input.setKeyListener(new NumberKeyListener() {
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        return new char[]{
+                                'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                                'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                                'o', 'p', 'q', 'r', 's', 't',
+                                'u', 'v', 'w', 'x', 'y', 'z',
+                                'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                                'H', 'I', 'J', 'K', 'L', 'M', 'N',
+                                'O', 'P', 'Q', 'R', 'S', 'T',
+                                'U', 'V', 'W', 'X', 'Y', 'Z'
+                        };
+                    }
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                    }
+                });
+            }
+
+            if (isNumberAndChar) {
+                input.setKeyListener(new NumberKeyListener() {
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        return new char[]{
+                                '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                                'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                                'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                                'o', 'p', 'q', 'r', 's', 't',
+                                'u', 'v', 'w', 'x', 'y', 'z',
+                                'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                                'H', 'I', 'J', 'K', 'L', 'M', 'N',
+                                'O', 'P', 'Q', 'R', 'S', 'T',
+                                'U', 'V', 'W', 'X', 'Y', 'Z'
+                        };
+                    }
+
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_CLASS_PHONE;
+                    }
+                });
+            }
+
+            if (okListener != null && ok != null) {
+                TextView okTv = view.findViewById(R.id.positiveButton);
+                okTv.setText(ok);
+                okTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        okListener.onNotice(input, xyDialog2, -1);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.positiveButton).setVisibility(View.GONE);
+            }
+
+            if (cancelListener != null && cancel != null) {
+                TextView cancelTv = view.findViewById(R.id.negativeButton);
+                cancelTv.setText(cancel);
+                cancelTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelListener.onNotice(null, xyDialog2, -1);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.negativeButton).setVisibility(View.GONE);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
+
+            if (isShowSoftKeyboard) {
+                input.setFocusable(true);
+                input.setFocusableInTouchMode(true);
+                input.requestFocus();
+                input.post(new Runnable() {
+                    @Override
+                    public void
+                    run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) ((Activity) context).
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInput(0,
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                });
+            }
+            return xyDialog2;
+        }
+
 
         //创建单选框
         public XyDialog2 createChooseButton() {

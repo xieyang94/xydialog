@@ -164,4 +164,21 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void onEdit3(View v) {
+        new XyDialog2.Builder(this)
+                .title("Dialog2-输入密码")
+                .digit(6)
+                .isNumber(true)
+                .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<EditText>() {
+                    @Override
+                    public void onNotice(EditText view, Dialog dialog, int which) {
+                        String input = view.getText().toString().trim();
+                        Toast.makeText(MainActivity.this, input, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .createPwd2Dialog()
+                .show();
+    }
+
 }
