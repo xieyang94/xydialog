@@ -393,7 +393,7 @@ public class XyDialog extends Dialog {
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    textView.setTextSize(XyCommon.dip2px(context, 6));
+                    textView.setTextSize(18);
                 } else {
                     textView.setTextSize(XyCommon.dip2px(context, 10));
                 }
