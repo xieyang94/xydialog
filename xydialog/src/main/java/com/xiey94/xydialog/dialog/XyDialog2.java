@@ -22,7 +22,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xiey94.xydialog.R;
 import com.xiey94.xydialog.util.XyCommon;
@@ -605,7 +604,6 @@ public class XyDialog2 extends Dialog {
                 } else {
                     textView.setTextSize(XyCommon.dip2px(context, 10));
                 }
-                Toast.makeText(context, "字号:" + XyCommon.dip2px(context, 10), Toast.LENGTH_SHORT).show();
                 textView.setBackgroundResource(R.drawable.xy_selector_text);
                 if (okListener != null) {
                     textView.setOnClickListener(new View.OnClickListener() {
