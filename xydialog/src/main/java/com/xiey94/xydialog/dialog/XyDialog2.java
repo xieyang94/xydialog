@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiey94.xydialog.R;
 import com.xiey94.xydialog.util.XyCommon;
@@ -600,10 +601,11 @@ public class XyDialog2 extends Dialog {
                 textView.setText(s);
                 textView.setPadding(40, 25, 40, 25);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    textView.setTextSize(XyCommon.dip2px(context, 6));
+                    textView.setTextSize(18);
                 } else {
                     textView.setTextSize(XyCommon.dip2px(context, 10));
                 }
+                Toast.makeText(context, "字号:" + XyCommon.dip2px(context, 10), Toast.LENGTH_SHORT).show();
                 textView.setBackgroundResource(R.drawable.xy_selector_text);
                 if (okListener != null) {
                     textView.setOnClickListener(new View.OnClickListener() {
@@ -646,7 +648,7 @@ public class XyDialog2 extends Dialog {
                 checkBox.setText(s);
                 checkBox.setPadding(40, 25, 40, 25);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    checkBox.setTextSize(XyCommon.dip2px(context, 6));
+                    checkBox.setTextSize(18);
                 } else {
                     checkBox.setTextSize(XyCommon.dip2px(context, 10));
                 }
@@ -741,7 +743,7 @@ public class XyDialog2 extends Dialog {
                 textView.setGravity(Gravity.CENTER);
                 textView.setTextColor(context.getResources().getColor(R.color.xydialog_colorSingle));
                 if (Build.VERSION.SDK_INT >= 21) {
-                    textView.setTextSize(XyCommon.dip2px(context, 6));
+                    textView.setTextSize(18);
                 } else {
                     textView.setTextSize(XyCommon.dip2px(context, 10));
                 }

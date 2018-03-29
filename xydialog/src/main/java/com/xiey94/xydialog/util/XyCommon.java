@@ -52,4 +52,22 @@ public class XyCommon {
         return (int) (pxValue / scale + 0.5f);
     }
 
+    /**
+     * @param pxValue
+     * @return 将px值转换为sp值
+     */
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * @param spValue
+     * @return 将px值转换为sp值
+     */
+    public static int sp2px(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
 }
