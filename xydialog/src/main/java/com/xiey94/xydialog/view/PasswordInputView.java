@@ -8,8 +8,17 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xiey94.xydialog.R;
+
+import java.lang.reflect.Field;
 
 /**
  * @author xiey
@@ -39,12 +48,78 @@ public class PasswordInputView extends AppCompatEditText {
     private OnFinishListener onFinishListener;
 
     public PasswordInputView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public PasswordInputView(Context context, AttributeSet attr) {
         super(context, attr);
         init(context, attr);
+        setLongClickable(false);
+        setTextIsSelectable(false);
+        setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
+        setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // setInsertionDisabled when user touches the view
+                    setInsertionDisabled(PasswordInputView.this);
+                }
+                return false;
+            }
+        });
+        
+    }
+
+    private void setInsertionDisabled(EditText editText) {
+        try {
+            Field editorField = TextView.class.getDeclaredField("mEditor");
+            editorField.setAccessible(true);
+            Object editorObject = editorField.get(editText);
+            // if this view supports insertion handles
+            Class editorClass = Class.forName("android.widget.Editor");
+            Field mInsertionControllerEnabledField = editorClass.getDeclaredField("mInsertionControllerEnabled");
+            mInsertionControllerEnabledField.setAccessible(true);
+            mInsertionControllerEnabledField.set(editorObject, false);
+            // if this view supports selection handles
+            Field mSelectionControllerEnabledField = editorClass.getDeclaredField("mSelectionControllerEnabled");
+            mSelectionControllerEnabledField.setAccessible(true);
+            mSelectionControllerEnabledField.set(editorObject, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void init(Context context, AttributeSet attr) {
