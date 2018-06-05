@@ -164,6 +164,7 @@ public class XySevDialog extends Dialog {
                 });
             }
             xyDialog2.setImageView(imageView);
+            xyDialog2.setSecurityCode(input);
 
             return xyDialog2;
         }
@@ -201,5 +202,15 @@ public class XySevDialog extends Dialog {
             rotate.end();
             rotate.clone();
         }
+    }
+
+    private SecurityCodeView securityCode;
+
+    public SecurityCodeView getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(SecurityCodeView securityCode) {
+        this.securityCode = securityCode;
     }
 }

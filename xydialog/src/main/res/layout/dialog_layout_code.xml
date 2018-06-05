@@ -11,7 +11,8 @@
         android:id="@+id/codeImage"
         android:layout_width="match_parent"
         android:layout_height="120dip"
-        android:background="#CCCCCC"/>
+        android:background="#CCCCCC"
+        android:scaleType="fitXY"/>
 
     <RelativeLayout
         android:id="@+id/refreshCode"
