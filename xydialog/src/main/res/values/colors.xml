@@ -30,4 +30,6 @@
     <color name="xydialog_colorLine">#efeff5</color>
     <!--单选文字颜色-->
     <color name="xydialog_colorSingle">#2269D4</color>
+
+    <color name="common_blue_0090FF">#1D75F2</color>
 </resources>

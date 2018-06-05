@@ -3,6 +3,7 @@ package com.xiey94.simple;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.xiey94.xydialog.dialog.XyDialog;
 import com.xiey94.xydialog.dialog.XyDialog2;
+import com.xiey94.xydialog.dialog.XySevDialog;
 
 import java.util.List;
 
@@ -180,5 +182,35 @@ public class MainActivity extends AppCompatActivity {
                 .createPwd2Dialog()
                 .show();
     }
+
+
+    public void onEdit4(View v) {
+        new XySevDialog.Builder(this)
+                .setSevListener(new XySevDialog.OnSevListener() {
+                    @Override
+                    public void sevComplete() {
+                        Toast.makeText(MainActivity.this, "完成", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void sevDeleteContent(boolean isDelete) {
+                        Toast.makeText(MainActivity.this, "删除", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void sevRefresh(final XySevDialog dialog) {
+                        Toast.makeText(MainActivity.this, "刷新", Toast.LENGTH_SHORT).show();
+                        dialog.getImageView().setBackgroundResource(R.color.colorAccent);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.stopRefresh();
+                            }
+                        }, 2000);
+                    }
+                })
+                .createSeVDialog().show();
+    }
+
 
 }

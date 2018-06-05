@@ -1,5 +1,7 @@
 package com.xiey94.xydialog.dialog;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -583,6 +586,28 @@ public class XyDialog2 extends Dialog {
             return xyDialog2;
         }
 
+        /**
+         * 刷新-属性动画
+         */
+        private ObjectAnimator rotate;
+
+        private void startRefresh(View view) {
+            if (rotate == null) {
+                rotate = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f);
+            }
+            rotate.setDuration(1000);
+            rotate.setRepeatCount(ValueAnimator.INFINITE);
+            rotate.setInterpolator(new LinearInterpolator());
+            rotate.start();
+        }
+
+        private void stopRefresh() {
+            if (rotate != null && rotate.isRunning()) {
+                rotate.end();
+                rotate.clone();
+            }
+        }
+
 
         //创建单选框
         public XyDialog2 createChooseButton() {
@@ -769,4 +794,5 @@ public class XyDialog2 extends Dialog {
 
 
     }
+
 }

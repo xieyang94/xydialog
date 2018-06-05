@@ -126,6 +126,12 @@
                 android:onClick="onEdit3"
                 android:text="密码输入框" />
 
+            <TextView
+                style="@style/TextView"
+                android:layout_marginBottom="30dip"
+                android:onClick="onEdit4"
+                android:text="验证码输入框" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

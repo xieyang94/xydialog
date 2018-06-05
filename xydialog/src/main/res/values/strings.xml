@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">xydialog</string>
+    <!--限制数字和字母-->
+    <string name="num_and_char">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 </resources>
