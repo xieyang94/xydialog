@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onEdit4(View v) {
         new XySevDialog.Builder(this)
+                .hint("提示：提示区分大小写")
                 .setSevListener(new XySevDialog.OnSevListener() {
                     @Override
                     public void sevComplete() {
