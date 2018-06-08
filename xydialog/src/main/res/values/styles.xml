@@ -30,4 +30,11 @@
     </style>
 
 
+    <style name="sev_warn_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:paddingLeft">10dip</item>
+    </style>
+
+
 </resources>

@@ -20,9 +20,17 @@
         android:layout_height="40dip">
 
         <TextView
+            android:id="@+id/hint"
+            style="@style/sev_warn_style"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/refreshImage"
+            android:gravity="center_vertical"
+            android:text="提示：区分大小写"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/refreshImage"
             android:gravity="center"
             android:text="刷新"
             android:textColor="@color/common_blue_0090FF"

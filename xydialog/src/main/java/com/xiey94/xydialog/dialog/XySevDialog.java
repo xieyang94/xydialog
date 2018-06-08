@@ -17,6 +17,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiey94.xydialog.R;
 import com.xiey94.xydialog.view.SecurityCodeView;
@@ -82,6 +83,7 @@ public class XySevDialog extends Dialog {
         private View view;
         private int resStyle = -1;
         private XySevDialog xyDialog2;
+        private String hint;
         private boolean isShowSoftKeyboard = true;
         private OnSevListener sevListener;
 
@@ -106,6 +108,17 @@ public class XySevDialog extends Dialog {
             return this;
         }
 
+        public Builder hint(String hint) {
+            this.hint = hint;
+            return this;
+        }
+
+        public Builder hint(int hint) {
+            this.hint = (String) context.getText(hint);
+            return this;
+        }
+
+
         public Builder setSevListener(OnSevListener sevListener) {
             this.sevListener = sevListener;
             return this;
@@ -114,6 +127,10 @@ public class XySevDialog extends Dialog {
         //创建输入密码对话框3
         public XySevDialog createSeVDialog() {
             view = LayoutInflater.from(context).inflate(R.layout.dialog_layout_code, null);
+            TextView hintTV = view.findViewById(R.id.hint);
+            if (null != hint) {
+                hintTV.setText(hint);
+            }
 
             final SecurityCodeView input = view.findViewById(R.id.securityCode);
             final ImageView imageView = view.findViewById(R.id.codeImage);
@@ -172,22 +189,22 @@ public class XySevDialog extends Dialog {
     }
 
 
-    private  ImageView imageView;
+    private ImageView imageView;
 
     public ImageView getImageView() {
         return imageView;
     }
 
-    public  void setImageView(ImageView imageView) {
+    public void setImageView(ImageView imageView) {
         this.imageView = imageView;
     }
 
     /**
      * 刷新-属性动画
      */
-    private  ObjectAnimator rotate;
+    private ObjectAnimator rotate;
 
-    private  void startRefresh(View view) {
+    private void startRefresh(View view) {
         if (rotate == null) {
             rotate = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f);
         }

@@ -38,7 +38,7 @@ allprojects {
 
 ```
 dependencies {
-    	compile 'com.github.xieyang94:xydialog:0.2.3'
+    	compile 'com.github.xieyang94:xydialog:0.2.8'
 	}
 ```
 
