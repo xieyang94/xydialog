@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * @author xieyang
- *         created at 2017/10/26.
+ * created at 2017/10/26.
  */
 public class XyDialog2 extends Dialog {
     private Context context;
@@ -789,6 +789,39 @@ public class XyDialog2 extends Dialog {
                 xyDialog2 = new XyDialog2(this, R.style.Dialog);
             }
 
+            return xyDialog2;
+        }
+
+
+        //创建协议Dialog
+        public XyDialog2 createAgreementDialog() {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_agreement_layout, null);
+            if (title != null) {
+                ((TextView) view.findViewById(R.id.title)).setText(title);
+            }
+
+            if (message != null) {
+                ((TextView) view.findViewById(R.id.message)).setText(message);
+            }
+
+            if (okListener != null && ok != null) {
+                TextView okTv = view.findViewById(R.id.positiveButton);
+                okTv.setText(ok);
+                okTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        okListener.onNotice(null, xyDialog2, -1);
+                    }
+                });
+            } else {
+                view.findViewById(R.id.positiveButton).setVisibility(View.GONE);
+            }
+
+            if (resStyle != -1) {
+                xyDialog2 = new XyDialog2(this, resStyle);
+            } else {
+                xyDialog2 = new XyDialog2(this, R.style.Dialog);
+            }
             return xyDialog2;
         }
 
