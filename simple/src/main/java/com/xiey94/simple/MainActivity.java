@@ -215,8 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void tiShi3(View v) {
         new XyDialog2.Builder(this)
-                .title("EAsset服务协议")
-                .message(getString(R.string.test_big))
+                .message("file:///android_asset/agreement.html")
                 .setPositiveButtonListener("确定", new XyDialog2.OnNoticeClickListener<Object>() {
                     @Override
                     public void onNotice(Object view, Dialog dialog, int which) {

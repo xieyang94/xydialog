@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.method.NumberKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Display;
@@ -21,6 +22,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -796,12 +800,37 @@ public class XyDialog2 extends Dialog {
         //创建协议Dialog
         public XyDialog2 createAgreementDialog() {
             view = LayoutInflater.from(context).inflate(R.layout.dialog_agreement_layout, null);
-            if (title != null) {
+            if (!TextUtils.isEmpty(title)) {
                 ((TextView) view.findViewById(R.id.title)).setText(title);
+            } else {
+                ((TextView) view.findViewById(R.id.title)).setVisibility(View.GONE);
             }
 
             if (message != null) {
-                ((TextView) view.findViewById(R.id.message)).setText(message);
+                WebView webView = view.findViewById(R.id.message);
+                WebSettings settings = webView.getSettings();
+                webView.loadUrl(message);
+                settings.setJavaScriptEnabled(true); //这里如果本地html引入了javascript那么需要把这个设置为true
+                settings.setAllowFileAccess(true);
+                settings.setDefaultTextEncodingName("utf-8"); //设置文本编码
+                settings.setAppCacheEnabled(true);
+                settings.setCacheMode(WebSettings.LOAD_DEFAULT);//设置缓存模式
+                settings.setDomStorageEnabled(true);
+                settings.setBuiltInZoomControls(true);
+                settings.setSupportZoom(true);
+                settings.setLoadWithOverviewMode(true);
+                settings.setUseWideViewPort(true);
+                settings.setLoadsImagesAutomatically(true);
+
+                webView.setWebViewClient(new WebViewClient() {
+
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+                        return true;
+                    }
+                });
+
             }
 
             if (okListener != null && ok != null) {
