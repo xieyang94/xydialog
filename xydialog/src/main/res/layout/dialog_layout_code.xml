@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/refreshImage"
             android:gravity="center"
-            android:text="刷新"
+            android:text="@string/xydialog2_refresh"
             android:textColor="@color/common_blue_0090FF"
             android:textSize="14sp"/>
 
