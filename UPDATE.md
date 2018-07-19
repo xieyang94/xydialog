@@ -58,6 +58,14 @@
 >* XySevDialog添加hint提示
 
 
+**v0.3.2**
+>* 添加协议框
+
+
+**v0.3.3**
+>* 修改SecurityCodeView超过6位的异常
+
+
 
 
 

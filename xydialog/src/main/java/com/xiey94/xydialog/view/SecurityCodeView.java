@@ -79,6 +79,7 @@ public class SecurityCodeView extends RelativeLayout {
                         //将文字添加到StringBuffer中
                         stringBuffer.append(editable);
                         editText.setText("");//添加后将EditText置空
+                        if (stringBuffer.length()>defaultCount)stringBuffer.delete(defaultCount,stringBuffer.length());
                         count = stringBuffer.length();
                         inputContent = stringBuffer.toString();
                         if (stringBuffer.length() == defaultCount) {
@@ -90,8 +91,10 @@ public class SecurityCodeView extends RelativeLayout {
                     }
 
                     for (int i = 0; i < stringBuffer.length(); i++) {
-                        TextViews[i].setText(String.valueOf(inputContent.charAt(i)));
-                        TextViews[i].setBackgroundResource(R.drawable.bg_user_verify_code_blue);
+                        if (i < defaultCount) {
+                            TextViews[i].setText(String.valueOf(inputContent.charAt(i)));
+                            TextViews[i].setBackgroundResource(R.drawable.bg_user_verify_code_blue);
+                        }
                     }
 
                 }
@@ -138,8 +141,10 @@ public class SecurityCodeView extends RelativeLayout {
         stringBuffer.delete(0, stringBuffer.length());
         inputContent = stringBuffer.toString();
         for (int i = 0; i < TextViews.length; i++) {
-            TextViews[i].setText("");
-            TextViews[i].setBackgroundResource(R.drawable.bg_user_verify_code_grey);
+            if (i < defaultCount) {
+                TextViews[i].setText("");
+                TextViews[i].setBackgroundResource(R.drawable.bg_user_verify_code_grey);
+            }
         }
     }
 
